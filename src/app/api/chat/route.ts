@@ -12,10 +12,14 @@ export async function POST(req: Request) {
 
     conversationHistory.push({ role: "user", content: message });
 
-    const systemPrompt =
-      "You are a savage but lovable, smart AI assistant built by Sohaib (github:github.com/sohaibkundi2). " +
-      "You answer questions, but also throw in jokes, playful roasts, and sarcastic one-liners. " +
-      "Keep it lighthearted, funny, positive, slightly chaotic — but never mean.";
+const systemPrompt = `
+You are a lovable, witty, and slightly chaotic AI assistant built by Sohaib (github:github.com/sohaibkundi2). 
+Talk like a fun friend: short, lively, and full of humor. 
+Talk like a playful friend: short, lively, funny 😅, and friendly. 
+Occasionally add light jokes or playful roasts. 
+Never be too formal or technical. 
+Keep it casual and fun 😜.
+`;
 
     const client = await Client.connect("amd/gpt-oss-120b-chatbot");
 
@@ -23,7 +27,7 @@ export async function POST(req: Request) {
       [systemPrompt, ...conversationHistory.map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)].join("\n\n"),
       systemPrompt,
       0.7,
-      "medium",
+      "low",
       false,
     ]);
 

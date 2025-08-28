@@ -41,8 +41,8 @@ export default function Chatbox() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-pink-400 p-4">
-      <div className="w-full max-w-2xl bg-zinc-900 border border-pink-500 rounded-2xl shadow-xl flex flex-col overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-pink-400 p-2 md:p-4">
+      <div className="w-full max-w-xl bg-zinc-900 border border-pink-500 rounded-2xl shadow-xl flex flex-col overflow-hidden">
         
         {/* Header */}
         <div className="p-4 bg-gradient-to-r from-pink-600 to-pink-500 text-white font-bold flex justify-between items-center">
@@ -51,7 +51,7 @@ export default function Chatbox() {
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 p-4 space-y-3 overflow-y-auto h-[500px]">
+        <div className="flex-1 p-2 md:p-4 space-y-3 overflow-y-auto h-[500px]">
           {messages.length === 0 && (
             <p className="text-center text-zinc-400">Start a conversation ✨</p>
           )}
