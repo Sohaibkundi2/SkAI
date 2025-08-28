@@ -24,12 +24,14 @@ export default function Chatbox() {
       let displayed = "";
       setMessages([...newMessages, { role: "bot", text: displayed }]);
 
-      // Streaming effect
+      // Smooth streaming effect
+      const speed = 10; // base delay in ms per character
       for (let i = 0; i < fullText.length; i++) {
         displayed += fullText[i];
         setMessages([...newMessages, { role: "bot", text: displayed }]);
-        await new Promise((r) => setTimeout(r, 20)); // typing speed
+        await new Promise((r) => setTimeout(r, speed));
       }
+
     } catch (err) {
       console.error(err);
       setMessages([...newMessages, { role: "bot", text: "⚠️ Error: Could not fetch response." }]);
@@ -82,7 +84,7 @@ export default function Chatbox() {
               <span className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white">
                 🤖
               </span>
-              <span className="animate-pulse">AI is thinking...</span>
+              <span className="animate-pulse"> AI is thinking...</span>
             </div>
           )}
         </div>

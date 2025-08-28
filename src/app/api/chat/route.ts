@@ -28,19 +28,18 @@ export async function POST(req: Request) {
     ]);
 
     const data = result.data as string[];
-    let rawOutput = data[0] || "";
+    const rawOutput = data[0] ?? "";
 
-    const match = rawOutput.match(/\*\*💬 Response:\*\*\s*(.*)/s);
+    // Regex compatible with ES2018+
+    const match = rawOutput.match(/\*\*💬 Response:\*\*\s*([\s\S]*)/);
     const cleanOutput = match ? match[1].trim() : rawOutput;
 
     conversationHistory.push({ role: "assistant", content: cleanOutput });
 
     return NextResponse.json({ output: cleanOutput });
-  } catch (error: any) {
-    console.error("Chat API Error:", error);
-    return NextResponse.json(
-      { error: error.message || "Something went wrong" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Chat API Error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
