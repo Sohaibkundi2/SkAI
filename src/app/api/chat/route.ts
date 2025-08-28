@@ -1,23 +1,46 @@
-import { NextRequest, NextResponse } from "next/server";
+// app/api/chat/route.ts
+import { NextResponse } from "next/server";
 import { Client } from "@gradio/client";
 
-export async function POST(req: NextRequest) {
-  try {
-    const { message } = await req.json();
+let conversationHistory: { role: "user" | "assistant"; content: string }[] = [];
 
-    // Connect to the Gradio Space
+export async function POST(req: Request) {
+  try {
+    const { message, reset } = await req.json();
+
+    if (reset) conversationHistory = [];
+
+    conversationHistory.push({ role: "user", content: message });
+
+    const systemPrompt =
+      "You are a savage but lovable, smart AI assistant built by Sohaib (github:github.com/sohaibkundi2). " +
+      "You answer questions, but also throw in jokes, playful roasts, and sarcastic one-liners. " +
+      "Keep it lighthearted, funny, positive, slightly chaotic — but never mean.";
+
     const client = await Client.connect("amd/gpt-oss-120b-chatbot");
 
-    // Predict /chat
-    const result = await client.predict("/chat", {
-      message,
-      system_prompt: "You are a helpful assistant. Only give the response, do not include any analysis.",
-      temperature: 0.7,
-    });
+    const result = await client.predict("/chat", [
+      [systemPrompt, ...conversationHistory.map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)].join("\n\n"),
+      systemPrompt,
+      0.7,
+      "medium",
+      false,
+    ]);
 
-    return NextResponse.json({ reply: result.data });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    const data = result.data as string[];
+    let rawOutput = data[0] || "";
+
+    const match = rawOutput.match(/\*\*💬 Response:\*\*\s*(.*)/s);
+    const cleanOutput = match ? match[1].trim() : rawOutput;
+
+    conversationHistory.push({ role: "assistant", content: cleanOutput });
+
+    return NextResponse.json({ output: cleanOutput });
+  } catch (error: any) {
+    console.error("Chat API Error:", error);
+    return NextResponse.json(
+      { error: error.message || "Something went wrong" },
+      { status: 500 }
+    );
   }
 }
