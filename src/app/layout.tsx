@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Sohaib's Funny AI",
     images: [
       {
-        url: "/preview",
+        url: "/preview.svg",
         width: 1200,
         height: 630,
         alt: "Sohaib's Funny AI Chatbot",
@@ -35,12 +35,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sohaib's Funny AI Chatbot",
     description: "A fun and friendly AI chatbot built by Sohaib.",
-    images: ["/logo"],
+    images: ["/logo.svg"],
   },
   icons: {
     icon: "/logo.svg",
-    shortcut: "/logo",
-    apple: "/logo",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
   },
 };
 
