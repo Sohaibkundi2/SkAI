@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import BotEmoji from './BotEmoji';
 
 export default function Chatbox() {
   const [input, setInput] = useState("");
@@ -41,7 +42,7 @@ export default function Chatbox() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-pink-400 p-2 md:p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-pink-400 p-2 md:p-4 border border-pink-500">
       <div className="w-full max-w-xl bg-zinc-900 border border-pink-500 rounded-2xl shadow-xl flex flex-col overflow-hidden">
         
         {/* Header */}
@@ -62,7 +63,7 @@ export default function Chatbox() {
             >
               {msg.role === "bot" && (
                 <span className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white">
-                  🤖
+                  {BotEmoji()}
                 </span>
               )}
               <div

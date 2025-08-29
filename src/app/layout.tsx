@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sohaib's Funny AI Chatbot",
+  title: "Sohaib'sAI Tools",
   description: "A fun and friendly AI chatbot built by Sohaib that answers questions with jokes, playful roasts, and casual conversation.",
   openGraph: {
     title: "Sohaib's Funny AI Chatbot",
     description: "A fun and friendly AI chatbot built by Sohaib.",
-    url: "sohaib-ai.vercel.app",
+    url: "https://sohaib-ai.vercel.app",
     siteName: "Sohaib's Funny AI",
     images: [
       {

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
             rewrite_prompt: true,
         });
 
-        const output = (result.data as any[])[0];
+        const output = (result.data as unknown[])[0];
         return NextResponse.json({ output });
     } catch (error: Error | unknown) {
         console.error("Image Edit Error:", error);
