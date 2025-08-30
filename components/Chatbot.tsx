@@ -82,9 +82,6 @@ export default function Chatbox() {
           ))}
           {loading && (
             <div className="flex items-center gap-2 text-zinc-400 text-sm">
-              <span className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white">
-                🤖
-              </span>
               <span className="animate-pulse"> AI is thinking...</span>
             </div>
           )}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-black text-white border border-pink-600">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-black text-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl p-6">
         
         <Link
